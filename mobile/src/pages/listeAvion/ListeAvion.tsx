@@ -12,7 +12,7 @@ const ListeAvion: React.FC = () => {
     const [avions, setAvions] = useState([]);
 
     function getAvions() {
-        const url = "http://localhost:8080/delaiAssurance/" + nbMois;
+        const url = "https://gestionflotteavionws-production.up.railway.app/delaiAssurance/" + nbMois;
         axios.get(url).then((response) => {
             setAvions(response.data);
         })

@@ -10,11 +10,11 @@ const Login: React.FC = () => {
   function login() {
     console.log("email : " + email);
     console.log("password : " + password);
-    const url = "http://localhost:8080/login?email=" + email + "&mdp=" + password;
+    const url = "https://gestionflotteavionws-production.up.railway.app/login?email=" + email + "&mdp=" + password;
 
     axios.get(url).then((response) => {
       console.log(response.data);
-      localStorage.setItem("entreprise", JSON.stringify(response.data));
+      localStorage.setItem("personne", JSON.stringify(response.data));
     });
   }
 

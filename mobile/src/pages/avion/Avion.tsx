@@ -1,4 +1,4 @@
-import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonIcon, IonItem, IonLabel, IonList, IonListHeader } from '@ionic/react';
+import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonVirtualScroll } from '@ionic/react';
 import axios from 'axios';
 import { airplane, calendar, car, card } from 'ionicons/icons';
 import { useEffect, useState } from 'react';
@@ -9,35 +9,35 @@ const Avion: React.FC = () => {
 
     const url = new URL(window.location.href);
     const id = url.searchParams.get("id");
-    
+
     const [avion, setAvion] = useState([]);
     const [assurance, setAssurance] = useState([]);
     const [kilometrages, setKilometrages] = useState([]);
     const [entretiens, setEntretiens] = useState([]);
 
     function getAvion() {
-        const url = "http://localhost:8080/avions/" + id;
+        const url = "https://gestionflotteavionws-production.up.railway.app/avions/" + id;
         axios.get(url).then((response) => {
             setAvion(response.data);
         })
     }
 
     function getAssurance() {
-        const url = "http://localhost:8080/assurance/" + id;
+        const url = "https://gestionflotteavionws-production.up.railway.app/assurance/" + id;
         axios.get(url).then((response) => {
             setAssurance(response.data);
         })
     }
 
     function getKilometrages() {
-        const url = "http://localhost:8080/kilometrages/" + id;
+        const url = "https://gestionflotteavionws-production.up.railway.app/kilometrages/" + id;
         axios.get(url).then((response) => {
             setKilometrages(response.data);
         })
     }
 
     function getEntretiens() {
-        const url = "http://localhost:8080/entretiens/" + id;
+        const url = "https://gestionflotteavionws-production.up.railway.app/entretiens/" + id;
         axios.get(url).then((response) => {
             setEntretiens(response.data);
         })
@@ -123,7 +123,7 @@ const Avion: React.FC = () => {
                     {assurance.map((item) => {
                         return (
                             <p>
-                                <IonIcon icon={card} slot="start" /> Assurance expiree le <b>{item["dateExpiration"]} j</b>
+                                <IonIcon icon={card} slot="start" /> Assurance expiree le <b>{item["dateExpiration"]}</b>
                             </p>
                         );
                     })}
