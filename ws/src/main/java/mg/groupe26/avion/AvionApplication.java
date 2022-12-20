@@ -5,6 +5,8 @@ import mg.groupe26.model.Assurance;
 import mg.groupe26.model.Avion;
 import mg.groupe26.model.Kilometrage;
 import mg.groupe26.model.Personne;
+import mg.groupe26.model.v_AssuranceValid;
+import mg.groupe26.model.v_Entretien;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -36,22 +38,27 @@ public class AvionApplication {
     @GetMapping("/avions")
     @CrossOrigin
     public List<Avion> findAvions() {
+        List<Avion> result = null;
         String query = "select * from Avion";
 
-        return jdbcTemplate.query(query,
+        result = jdbcTemplate.query(query,
                 (rs, row) -> new Avion(rs.getInt("id"),
-                        rs.getString("nom")));
+                        rs.getString("nom"),
+                        rs.getString("img")));
+
+        return result;
     }
 
     @GetMapping("/avions/{id}")
     @CrossOrigin
-    public Avion findAvion(@PathVariable int id) {
-        Avion result = null;
+    public List<Avion> findAvion(@PathVariable int id) {
+        List<Avion> result = null;
         String query = "select * from Avion where id = " + id;
 
         result = jdbcTemplate.query(query,
                 (rs, row) -> new Avion(rs.getInt("id"),
-                        rs.getString("matriculation"))).get(0);
+                        rs.getString("nom"),
+                        rs.getString("img")));
 
         return result;
     }
@@ -105,28 +112,51 @@ public class AvionApplication {
     }
 
     //    assurance
-    @GetMapping("/moisAssurance/{nbMois}")
+    @GetMapping("/delaiAssurance/{nbMois}")
     @CrossOrigin
-    public List<Avion> getMoisAssurance(@PathVariable Integer nbMois) {
+    public List<v_AssuranceValid> getDelaiAssurance(@PathVariable Integer nbMois) {
+        List<v_AssuranceValid> result = null;
         String query = "select * from v_AssuranceValid ";
-        if (nbMois != null) {
-            query += "where diff <= " + (nbMois * 30);
+        if (nbMois != 0) {
+            query += "where diffJour <= " + (nbMois * 30);
         }
+        result = jdbcTemplate.query(query,
+                (rs, row) -> new v_AssuranceValid(rs.getInt("id"),
+                        rs.getInt("idavion"),
+                        rs.getInt("diffjour"),
+                        rs.getString("nom")));
 
-        return null;
+        return result;
     }
 
     @GetMapping("/assurance/{idAvion}")
     @CrossOrigin
-    public Assurance getAssurance(@PathVariable int idAvion) {
-        Assurance result = null;
+    public List<Assurance> getAssurance(@PathVariable int idAvion) {
+        List<Assurance> result = null;
         String query = "select * from Assurance where idAvion = " + idAvion;
 
         result = jdbcTemplate.query(query,
                 (rs, row) -> new Assurance(rs.getInt("id"),
                         rs.getInt("idAvion"),
                         rs.getString("dateassurance"),
-                        rs.getString("dateexpiration"))).get(0);
+                        rs.getString("dateexpiration")));
+
+        return result;
+    }
+
+//    Entretien
+    @GetMapping("/entretiens/{idAvion}")
+    @CrossOrigin
+    public List<v_Entretien> getEntretiens(@PathVariable int idAvion) {
+        List<v_Entretien> result = null;
+        String query = "select * from v_Entretien where idAvion = " + idAvion;
+
+        result = jdbcTemplate.query(query,
+                (rs, row) -> new v_Entretien(rs.getString("nom"),
+                        rs.getInt("id"),
+                        rs.getInt("idAvion"),
+                        rs.getInt("idtypeentretien"),
+                        rs.getString("dateentretien")));
 
         return result;
     }

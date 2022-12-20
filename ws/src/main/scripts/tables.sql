@@ -46,8 +46,19 @@ create table Token (
 );
 
 create or replace view v_AssuranceValid as (
-    select id,
-        idAvion,
-        (dateExpiration - current_date) as diffJour
-    from assurance
-); 
+    select a.id,
+        a.idAvion,
+        (a.dateExpiration - current_date) as diffJour,
+        av.nom 
+    from assurance a
+        join avion av
+        on a.idavion = av.id
+);
+
+create or replace view v_Entretien as (
+    select e.*,
+        t.nom
+    from Entretien e
+        join TypeEntretien t
+        on e.idTypeEntretien = t.id
+);

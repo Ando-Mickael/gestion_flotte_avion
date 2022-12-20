@@ -5,14 +5,16 @@ public class v_AssuranceValid {
     int id;
     int idAvion;
     int diffJour;
+    String nom;
 
     public v_AssuranceValid() {
     }
 
-    public v_AssuranceValid(int id, int idAvion, int diffJour) {
+    public v_AssuranceValid(int id, int idAvion, int diffJour, String nom) {
         this.id = id;
         this.idAvion = idAvion;
         this.diffJour = diffJour;
+        this.nom = nom;
     }
 
     public int getId() {
@@ -37,6 +39,14 @@ public class v_AssuranceValid {
 
     public void setDiffJour(int diffJour) {
         this.diffJour = diffJour;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
 }
