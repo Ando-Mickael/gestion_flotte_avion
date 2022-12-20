@@ -1,0 +1,7 @@
+{
+  "name": "tp_avion",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
