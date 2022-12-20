@@ -2,52 +2,50 @@ import './ListeAvion.css';
 import { IonIcon, IonItem, IonLabel } from '@ionic/react';
 import { car } from 'ionicons/icons';
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const ListeAvion: React.FC = () => {
 
-    // const [liste, setListe] = useState([]);
-    // const [verif, setVerif] = useState(false);
-
     const url = new URL(window.location.href);
-    const id = url.searchParams.get("nbMois");
+    const nbMois = url.searchParams.get("nbMois");
+    
+    const [avions, setAvions] = useState([]);
 
-    // if (!verif) {
-    //     const url = "http://localhost:8080/delaiAssurance/" + nbMois;
-    //     axios.get(url).then((response) => {
-    //         console.log(response.data);
-    //         setListe(response.data);
-    //         setVerif(true);
-    //     })
-    // }
+    function getAvions() {
+        const url = "http://localhost:8080/delaiAssurance/" + nbMois;
+        axios.get(url).then((response) => {
+            setAvions(response.data);
+        })
+    }
 
-    const avions = [
-        {
-            "id": 1,
-            "idAvion": 1,
-            "diffJour": 10,
-            "nom": "Air Mad 01"
-        },
-        {
-            "id": 2,
-            "idAvion": 2,
-            "diffJour": 11,
-            "nom": "Air Mad 02"
-        },
-        {
-            "id": 3,
-            "idAvion": 3,
-            "diffJour": 71,
-            "nom": "Air Austral 01"
-        }
-    ];
+    useEffect(() => {
+        getAvions();
+    }, []);
 
-    console.log(avions);
+    // const avions = [
+    //     {
+    //         "id": 1,
+    //         "idAvion": 1,
+    //         "diffJour": 10,
+    //         "nom": "Air Mad 01"
+    //     },
+    //     {
+    //         "id": 2,
+    //         "idAvion": 2,
+    //         "diffJour": 11,
+    //         "nom": "Air Mad 02"
+    //     },
+    //     {
+    //         "id": 3,
+    //         "idAvion": 3,
+    //         "diffJour": 71,
+    //         "nom": "Air Austral 01"
+    //     }
+    // ];
 
     return (
         <>
             {avions.map((avion: any) => {
-                console.log(avion);
                 const tmp: string = "/vehicule?id=" + avion["idAvion"];
 
                 return (

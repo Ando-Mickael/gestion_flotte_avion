@@ -21,15 +21,15 @@ const Home: React.FC = () => {
 
       <IonContent fullscreen>
         <IonList>
-          <IonItem href="/listeAvion" detail={true}>
+          <IonItem href="/listeAvion?nbMois=0" detail={true}>
             <IonIcon icon={airplane} slot="start"></IonIcon>
             <IonLabel>Tout</IonLabel>
           </IonItem>
-          <IonItem href="/listeAvion" detail={true}>
+          <IonItem href="/listeAvion?nbMois=1" detail={true}>
             <IonIcon icon={remove} slot="start"></IonIcon>
             <IonLabel>Dans 1 mois</IonLabel>
           </IonItem>
-          <IonItem href="/listeAvion" detail={true}>
+          <IonItem href="/listeAvion?nbMois=3" detail={true}>
             <IonIcon icon={reorderThree} slot="start"></IonIcon>
             <IonLabel>Dans 3 mois</IonLabel>
           </IonItem>
