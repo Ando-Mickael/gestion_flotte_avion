@@ -62,6 +62,13 @@ public class AvionApplication {
 
         return result;
     }
+    
+    @GetMapping("/updateAvion/")
+    public void updateAvion(@RequestParam int id, @RequestParam String img) {
+        String query = String.format("update Avion set img ='" + img + "' where id = " + id);
+
+        jdbcTemplate.batchUpdate(query);
+    }
 
     // CRUD Kilometrage
     @GetMapping("/kilometrages/{idAvion}")
@@ -171,12 +178,7 @@ public class AvionApplication {
 //        jdbcTemplate.batchUpdate(query);
 //    }
 //
-//    @DeleteMapping("/delAvion/{id}")
-//    public void deleteAvion(@PathVariable int id) {
-//        String query = String.format("delete from Avion where id=%s", id);
-//
-//        jdbcTemplate.batchUpdate(query);
-//    }
+    
 //    @PostMapping("/kilometrage")
 //    public void addKilometraage(@RequestParam(value = "idAvion") int idAvion,
 //            @RequestParam(value = "dateTrajet") String dateTrajet, @RequestParam(value = "debutKm") Float debutKm,
