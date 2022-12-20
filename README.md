@@ -10,5 +10,7 @@
 	- DB / User : bzecasum
 	- Password : cikmwcfBIZR-1MwRZnwzrf1yhwV3FplL
 - [Railway WS](https://gestionflotteavionws-production.up.railway.app)
-- 
 
+## Login
+- email : ando@gmail.com
+- mdp : ando
