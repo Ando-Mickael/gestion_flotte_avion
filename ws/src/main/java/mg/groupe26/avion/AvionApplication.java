@@ -63,8 +63,8 @@ public class AvionApplication {
         return result;
     }
     
-    @GetMapping("/updateAvion/")
-    public void updateAvion(@RequestParam int id, @RequestParam String img) {
+    @GetMapping("/updateAvion/{id}/{img}")
+    public void updateAvion(@PathVariable int id, @PathVariable String img) {
         String query = String.format("update Avion set img ='" + img + "' where id = " + id);
 
         jdbcTemplate.batchUpdate(query);
